@@ -34,10 +34,11 @@
                             />
                         </fieldset>
                         <button
+                            [disabled]="isSubmitting$ | async"
                             class="btn btn-lg btn-primary pull-xs-right"
                             type="submit"
                         >
-                            Submit
+                            Sign up
                         </button>
                     </fieldset>
                 </form>
