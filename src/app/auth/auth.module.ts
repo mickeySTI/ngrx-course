@@ -8,6 +8,8 @@ import { StoreModule } from '@ngrx/store';
 import { reducers } from './store/reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { RegisterEffect } from './store/effects/register.effect';
+import { BackendErrorMessagesModule } from '../shared/modules/backendErrorMessages/backendErrorMessages.module';
+import { PersistanceService } from '../shared/services/persistance.service';
 
 const routes: Routes = [
     {
@@ -23,8 +25,9 @@ const routes: Routes = [
         RouterModule.forChild(routes),
         ReactiveFormsModule,
         StoreModule.forFeature('auth', reducers),
+        BackendErrorMessagesModule,
     ],
-    providers: [AuthService],
+    providers: [AuthService, PersistanceService],
     declarations: [RegisterComponent],
 })
 export class AuthModule {}

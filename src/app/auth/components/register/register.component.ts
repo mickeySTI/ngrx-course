@@ -1,4 +1,8 @@
-import { isSubmittingSelector } from './../../store/selectors';
+import { BackendErrorsInterface } from './../../../shared/types/backendErros.interface';
+import {
+    isSubmittingSelector,
+    validationErrorsSelector,
+} from './../../store/selectors';
 import { registerAction } from '../../store/actions/registerActions';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -15,6 +19,7 @@ export class RegisterComponent implements OnInit {
     form: FormGroup;
     constructor(private fb: FormBuilder, private store: Store) {}
     isSubmitting$: Observable<boolean>;
+    backendErrors$: Observable<BackendErrorsInterface | null>;
 
     ngOnInit(): void {
         this.initializeForm();
@@ -31,7 +36,7 @@ export class RegisterComponent implements OnInit {
 
     initializeValues(): void {
         this.isSubmitting$ = this.store.pipe(select(isSubmittingSelector));
-        console.log('isSubmitting', this.isSubmitting$);
+        this.backendErrors$ = this.store.pipe(select(validationErrorsSelector));
     }
 
     onSubmit(): void {
